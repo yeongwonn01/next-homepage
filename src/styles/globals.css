@@ -273,6 +273,88 @@ body {
 .clear-cart-btn:hover {
   background: #b71c1c;
 }
+/* 네비게이션 프로필 버튼 */
+.profile-btn {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  margin-left: 20px;
+}
+
+.profile-btn:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 로그인, 회원가입 */
+.login-container,
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.login-form,
+.register-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.login-form h2,
+.register-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.login-form input,
+.register-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.login-form button,
+.register-form button {
+  width: 100%;
+  padding: 10px;
+  background: #3e2723;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-form button:hover,
+.register-form button:hover {
+  background: #ffa726;
+}
+
+.register-link,
+.login-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.register-link a,
+.login-link a {
+  color: #3e2723;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {

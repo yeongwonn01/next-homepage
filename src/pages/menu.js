@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useCart } from "@/context/CartContext";
+//import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext"; // 유저 정보 가져오기
 import Header from "@/components/Header";
 
 const menuData = {
@@ -39,10 +40,11 @@ const menuData = {
 };
 
 export default function Menu() {
-  const { addToCart } = useCart();
+  const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
   const [activeCategory, setActiveCategory] = useState("breads");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedQuantities, setSelectedQuantities] = useState({});
+  const [, setError] = useState(null);
 
   const handleItemClick = (item) => {
     if (selectedItem && selectedItem.id === item.id) {
@@ -60,13 +62,38 @@ export default function Menu() {
     }));
   };
 
-  const handleAddToCart = (event) => {
+  const handleAddToCart = async (event) => {
     event.stopPropagation();
+    if (!user) {
+      setError("You must be logged in to add items to the cart.");
+      return;
+    }
+
     if (selectedItem) {
       const quantity = selectedQuantities[selectedItem.id] || 1;
-      addToCart({ ...selectedItem, quantity });
-      setSelectedItem(null);
-      setSelectedQuantities((prev) => ({ ...prev, [selectedItem.id]: 1 }));
+      try {
+        const response = await fetch("/api/cart", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: user.id,
+            menuId: selectedItem.id,
+            quantity,
+          }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || "Failed to add item to cart");
+        }
+
+        setSelectedItem(null);
+        setSelectedQuantities((prev) => ({ ...prev, [selectedItem.id]: 1 }));
+        setError(null);
+      } catch (err) {
+        console.error("Error adding item to cart:", err.message);
+        setError(err.message);
+      }
     }
   };
 
