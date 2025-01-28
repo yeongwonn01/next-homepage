@@ -42,7 +42,7 @@ export default function Menu() {
   const { addToCart } = useCart();
   const [activeCategory, setActiveCategory] = useState("breads");
   const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedQuantities, setSelectedQuantities] = useState({}); // 아이템별 개수 저장
+  const [selectedQuantities, setSelectedQuantities] = useState({});
 
   const handleItemClick = (item) => {
     if (selectedItem && selectedItem.id === item.id) {
@@ -53,7 +53,7 @@ export default function Menu() {
   };
 
   const handleQuantityChange = (event, itemId, change) => {
-    event.stopPropagation(); // 클릭 이벤트 전파 방지
+    event.stopPropagation();
     setSelectedQuantities((prevQuantities) => ({
       ...prevQuantities,
       [itemId]: Math.max(1, (prevQuantities[itemId] || 1) + change),
@@ -61,12 +61,12 @@ export default function Menu() {
   };
 
   const handleAddToCart = (event) => {
-    event.stopPropagation(); // 클릭 이벤트 전파 방지
+    event.stopPropagation();
     if (selectedItem) {
-      const quantity = selectedQuantities[selectedItem.id] || 1; // 현재 아이템의 수량 가져오기
+      const quantity = selectedQuantities[selectedItem.id] || 1;
       addToCart({ ...selectedItem, quantity });
       setSelectedItem(null);
-      setSelectedQuantities((prev) => ({ ...prev, [selectedItem.id]: 1 })); // 해당 아이템의 수량 초기화
+      setSelectedQuantities((prev) => ({ ...prev, [selectedItem.id]: 1 }));
     }
   };
 

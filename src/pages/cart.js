@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import { useCart } from "@/context/CartContext";
 
 export default function Cart() {
-  const { cartItems, clearCart } = useCart(); // 🆕 clearCart 추가
+  const { cartItems, clearCart } = useCart();
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
