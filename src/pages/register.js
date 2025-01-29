@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -59,7 +60,7 @@ export default function Register() {
         />
         <button type="submit">Register</button>
         <p className="login-link">
-          Already have an account? <a href="/login">Login</a>
+          Already have an account? <Link href="/login">Login</Link>
         </p>
       </form>
     </div>

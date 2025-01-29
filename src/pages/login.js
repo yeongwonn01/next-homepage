@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -68,7 +69,7 @@ export default function Login() {
           {isLoading ? "Logging in..." : "Login"}
         </button>
         <p className="register-link">
-          Do not have an account? <a href="/register">Register</a>
+          Do not have an account? <Link href="/register">Register</Link>
         </p>
       </form>
     </div>
