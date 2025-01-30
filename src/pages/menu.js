@@ -100,60 +100,65 @@ export default function Menu() {
   return (
     <div>
       <Header />
-      <main className="menu-content">
-        <div className="menu-categories">
-          <button onClick={() => setActiveCategory("breads")}>Breads</button>
-          <button onClick={() => setActiveCategory("desserts")}>
-            Desserts
-          </button>
-          <button onClick={() => setActiveCategory("drinks")}>Drinks</button>
-        </div>
-        <div className="menu-grid">
-          {menuData[activeCategory].map((item) => (
-            <div
-              key={item.id}
-              className={`menu-item ${
-                selectedItem?.id === item.id ? "expanded" : ""
-              }`}
-              onClick={() => handleItemClick(item)}
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="menu-item-image"
-              />
-              <p className="menu-item-name">{item.name}</p>
-              <p className="menu-item-price">${item.price.toFixed(2)}</p>
-              {selectedItem?.id === item.id && (
-                <div
-                  className="item-options"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="quantity-controls">
+      <main className="main-content">
+        <main className="menu-content">
+          <div className="menu-categories">
+            <button onClick={() => setActiveCategory("breads")}>Breads</button>
+            <button onClick={() => setActiveCategory("desserts")}>
+              Desserts
+            </button>
+            <button onClick={() => setActiveCategory("drinks")}>Drinks</button>
+          </div>
+          <div className="menu-grid">
+            {menuData[activeCategory].map((item) => (
+              <div
+                key={item.id}
+                className={`menu-item ${
+                  selectedItem?.id === item.id ? "expanded" : ""
+                }`}
+                onClick={() => handleItemClick(item)}
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="menu-item-image"
+                />
+                <p className="menu-item-name">{item.name}</p>
+                <p className="menu-item-price">${item.price.toFixed(2)}</p>
+                {selectedItem?.id === item.id && (
+                  <div
+                    className="item-options"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="quantity-controls">
+                      <button
+                        className="quantity-btn"
+                        onClick={(e) => handleQuantityChange(e, item.id, -1)}
+                      >
+                        ➖
+                      </button>
+                      <span className="quantity-value">
+                        {selectedQuantities[item.id] || 1}
+                      </span>
+                      <button
+                        className="quantity-btn"
+                        onClick={(e) => handleQuantityChange(e, item.id, 1)}
+                      >
+                        ➕
+                      </button>
+                    </div>
                     <button
-                      className="quantity-btn"
-                      onClick={(e) => handleQuantityChange(e, item.id, -1)}
+                      className="add-to-cart-btn"
+                      onClick={handleAddToCart}
                     >
-                      ➖
-                    </button>
-                    <span className="quantity-value">
-                      {selectedQuantities[item.id] || 1}
-                    </span>
-                    <button
-                      className="quantity-btn"
-                      onClick={(e) => handleQuantityChange(e, item.id, 1)}
-                    >
-                      ➕
+                      Add to Cart
                     </button>
                   </div>
-                  <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                    Add to Cart
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </main>
       </main>
     </div>
   );
